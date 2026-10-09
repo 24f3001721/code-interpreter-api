@@ -86,10 +86,10 @@ def code_interpreter(request: CodeRequest):
 
     try:
         error_lines = analyze_error_with_ai(
-            request.code,
-            execution["output"]
+            request.code, execution["output"]
         )
-    except Exception:
+    except Exception as e:
+        print(f"Gemini analysis failed: {type(e).__name__}: {e}")
         error_lines = []
 
     return {
