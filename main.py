@@ -2,6 +2,7 @@ import os
 import sys
 import traceback
 from io import StringIO
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -9,7 +10,13 @@ from google import genai
 from google.genai import types
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class CodeRequest(BaseModel):
     code: str
